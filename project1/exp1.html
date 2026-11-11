@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Area Calculator</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 40px;
+            background: radial-gradient(circle, white 0%, rgb(0, 225, 255) 100%);
+        }
+
+        .container {
+            text-align: center;
+        }
+
+        .shapes {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-top: 30px;
+            flex-wrap: wrap;
+        }
+
+        .card {
+            width: 280px;
+            background: white;
+            border: 2px solid #ccc;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.2);
+        }
+
+        .card h3 {
+            margin-top: 0;
+        }
+
+        label {
+            display: block;
+            text-align: left;
+            margin-top: 10px;
+        }
+
+        input,
+        button {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            box-sizing: border-box;
+        }
+
+        button {
+            margin-top: 15px;
+            background-color: rgb(113, 128, 0);
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: rgb(113, 128, 0);
+        }
+
+        .result {
+            margin-top: 10px;
+            font-weight: bold;
+            color: rgb(98, 0, 128);
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <h2>Area Calculator</h2>
+    <h3>Name: Shreyas Chavan</h3>
+    <h3>Roll No: 42404</h3>
+
+    <div class="shapes">
+
+        
+        <!-- Triangle -->
+        <div class="card">
+            <h3>Triangle</h3>
+
+            <label>Side 1</label>
+            <input type="number" id="side1" placeholder="Enter side 1">
+
+            <label>Side 2</label>
+            <input type="number" id="side2" placeholder="Enter side 2">
+
+            <label>Side 3</label>
+            <input type="number" id="side3" placeholder="Enter side 3">
+
+            <button onclick="calculateTriangleArea()">Calculate</button>
+
+            <p id="triangleResult" class="result"></p>
+        </div>
+
+        <!-- Rectangle -->
+        <div class="card">
+            <h3>Rectangle</h3>
+
+            <label>Length</label>
+            <input type="number" id="length" placeholder="Enter length">
+
+            <label>Width</label>
+            <input type="number" id="width" placeholder="Enter width">
+
+            <button onclick="calculateRectangleArea()">Calculate</button>
+
+            <p id="rectangleResult" class="result"></p>
+        </div>
+
+        <!-- Circle -->
+        <div class="card">
+            <h3>Circle</h3>
+
+            <label>Radius</label>
+            <input type="number" id="radius" placeholder="Enter radius">
+
+            <button onclick="calculateCircleArea()">Calculate</button>
+
+            <p id="circleResult" class="result"></p>
+        </div>
+
+    </div>
+
+</div>
+
+<script src="exp1.js"></script>
+
+</body>
+</html>

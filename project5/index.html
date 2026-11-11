@@ -1,0 +1,957 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Countdown Timer</title>
+
+<style>
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background: #f4f4f4;
+    text-align: center;
+    margin: 0;
+    padding: 20px;
+}
+
+.container {
+    width: 605px;
+    max-width: 100%;
+    margin: 30px auto;
+    padding: 35px 25px;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 0 12px #bbb;
+}
+
+.info {
+    margin-bottom: 30px;
+}
+
+.info h2 {
+    margin-bottom: 22px;
+}
+
+.info p {
+    margin: 8px 0;
+    font-size: 16px;
+}
+
+h3 {
+    margin-bottom: 25px;
+}
+
+.inputs-container {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    margin: 20px 0 30px;
+    flex-wrap: wrap;
+}
+
+.input-box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+input {
+    width: 172px;
+    height: 46px;
+    padding: 8px;
+    text-align: center;
+    font-size: 15px;
+    border: 1px solid #aaa;
+    border-radius: 6px;
+}
+
+input:focus {
+    outline: none;
+    border-color: #007bff;
+}
+
+.input-box label {
+    margin-top: 10px;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+button {
+    padding: 11px 20px;
+    margin: 8px 5px;
+    cursor: pointer;
+    border: none;
+    border-radius: 5px;
+    font-size: 14px;
+}
+
+#startBtn {
+    background: #007bff;
+    color: white;
+}
+
+#startBtn:hover {
+    background: #0056b3;
+}
+
+#resetBtn {
+    background: #dc3545;
+    color: white;
+}
+
+#resetBtn:hover {
+    background: #b02a37;
+}
+
+#statusMsg {
+    min-height: 22px;
+    margin-top: 20px;
+}
+
+.error {
+    color: red;
+}
+
+.success {
+    color: green;
+    font-weight: bold;
+}
+
+.timer-display {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    margin-top: 25px;
+    flex-wrap: wrap;
+}
+
+.time-box {
+    background: #eee;
+    padding: 10px;
+    border-radius: 5px;
+    min-width: 65px;
+}
+
+.time-box span {
+    display: block;
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 3px;
+}
+
+@media (max-width: 500px) {
+
+    .container {
+        padding: 25px 15px;
+    }
+
+    .inputs-container {
+        gap: 15px;
+    }
+
+    input {
+        width: 160px;
+    }
+
+}
+
+</style>
+</head>
+
+
+<body>
+
+<div class="container">
+
+    <div class="info">
+
+        <h2>Countdown Timer</h2>
+
+        <p>
+            <b>Name:</b> Shreyas Chavan
+        </p>
+
+        <p>
+            <b>Class:</b> BE8 (P8)
+        </p>
+
+        <p>
+            <b>Roll No.:</b> 42404
+        </p>
+
+    </div>
+
+
+    <h3>Set Timer Duration</h3>
+
+
+    <div class="inputs-container">
+
+        <!-- DATE -->
+
+        <div class="input-box">
+
+            <input
+                type="date"
+                id="targetDate"
+            >
+
+            <label for="targetDate">
+                Calendar / Date
+            </label>
+
+        </div>
+
+
+        <!-- TIME -->
+
+        <div class="input-box">
+
+            <input
+                type="time"
+                id="targetTime"
+                step="1"
+            >
+
+            <label for="targetTime">
+                Time
+            </label>
+
+        </div>
+
+    </div>
+
+
+    <button id="startBtn">
+        Start Timer
+    </button>
+
+    <button id="resetBtn">
+        Reset
+    </button>
+
+
+    <p id="statusMsg"></p>
+
+
+    <div
+        class="timer-display"
+        id="timerDisplay"
+        style="display:none;"
+    >
+
+        <div class="time-box">
+            <span id="years">00</span>
+            Y
+        </div>
+
+        <div class="time-box">
+            <span id="months">00</span>
+            M
+        </div>
+
+        <div class="time-box">
+            <span id="days">00</span>
+            D
+        </div>
+
+        <div class="time-box">
+            <span id="hours">00</span>
+            H
+        </div>
+
+        <div class="time-box">
+            <span id="minutes">00</span>
+            Min
+        </div>
+
+        <div class="time-box">
+            <span id="seconds">00</span>
+            Sec
+        </div>
+
+    </div>
+
+</div>
+
+
+<script>
+
+/* =====================================================
+   ELEMENTS
+===================================================== */
+
+const targetDate =
+    document.getElementById("targetDate");
+
+const targetTime =
+    document.getElementById("targetTime");
+
+const startBtn =
+    document.getElementById("startBtn");
+
+const resetBtn =
+    document.getElementById("resetBtn");
+
+const statusMsg =
+    document.getElementById("statusMsg");
+
+const timerDisplay =
+    document.getElementById("timerDisplay");
+
+let timer = null;
+
+
+/* =====================================================
+   TODAY'S DATE
+===================================================== */
+
+function getTodayString() {
+
+    const now = new Date();
+
+    const year = now.getFullYear();
+
+    const month = String(
+        now.getMonth() + 1
+    ).padStart(2, "0");
+
+    const day = String(
+        now.getDate()
+    ).padStart(2, "0");
+
+    return `${year}-${month}-${day}`;
+}
+
+
+/* =====================================================
+   SET MINIMUM DATE
+===================================================== */
+
+targetDate.min = getTodayString();
+
+
+/* =====================================================
+   CONVERT TIME TO SECONDS
+===================================================== */
+
+function timeToSeconds(timeString) {
+
+    const parts = timeString.split(":");
+
+    const hours =
+        Number(parts[0] || 0);
+
+    const minutes =
+        Number(parts[1] || 0);
+
+    const seconds =
+        Number(parts[2] || 0);
+
+    return (
+        hours * 3600 +
+        minutes * 60 +
+        seconds
+    );
+}
+
+
+/* =====================================================
+   CONVERT SECONDS TO COUNTDOWN
+===================================================== */
+
+function secondsToCountdown(totalSeconds) {
+
+    totalSeconds =
+        Math.max(0, Math.floor(totalSeconds));
+
+
+    const years = Math.floor(
+        totalSeconds /
+        (365 * 24 * 60 * 60)
+    );
+
+    totalSeconds -=
+        years *
+        365 *
+        24 *
+        60 *
+        60;
+
+
+    const months = Math.floor(
+        totalSeconds /
+        (30 * 24 * 60 * 60)
+    );
+
+    totalSeconds -=
+        months *
+        30 *
+        24 *
+        60 *
+        60;
+
+
+    const days = Math.floor(
+        totalSeconds /
+        (24 * 60 * 60)
+    );
+
+    totalSeconds -=
+        days *
+        24 *
+        60 *
+        60;
+
+
+    const hours = Math.floor(
+        totalSeconds / 3600
+    );
+
+    totalSeconds -=
+        hours * 3600;
+
+
+    const minutes = Math.floor(
+        totalSeconds / 60
+    );
+
+    totalSeconds -=
+        minutes * 60;
+
+
+    const seconds =
+        totalSeconds;
+
+
+    return {
+        years,
+        months,
+        days,
+        hours,
+        minutes,
+        seconds
+    };
+}
+
+
+/* =====================================================
+   UPDATE DISPLAY
+===================================================== */
+
+function updateDisplay(data) {
+
+    document.getElementById("years")
+        .textContent =
+        String(data.years)
+        .padStart(2, "0");
+
+    document.getElementById("months")
+        .textContent =
+        String(data.months)
+        .padStart(2, "0");
+
+    document.getElementById("days")
+        .textContent =
+        String(data.days)
+        .padStart(2, "0");
+
+    document.getElementById("hours")
+        .textContent =
+        String(data.hours)
+        .padStart(2, "0");
+
+    document.getElementById("minutes")
+        .textContent =
+        String(data.minutes)
+        .padStart(2, "0");
+
+    document.getElementById("seconds")
+        .textContent =
+        String(data.seconds)
+        .padStart(2, "0");
+}
+
+
+/* =====================================================
+   CLEAR STATUS
+===================================================== */
+
+function clearStatus() {
+
+    statusMsg.textContent = "";
+
+    statusMsg.className = "";
+
+}
+
+
+/* =====================================================
+   START TIMER
+===================================================== */
+
+startBtn.addEventListener("click", function () {
+
+    clearInterval(timer);
+
+    timer = null;
+
+
+    /* ---------------------------------------------
+       DATE REQUIRED
+    --------------------------------------------- */
+
+    if (!targetDate.value) {
+
+        statusMsg.textContent =
+            "Please select a date.";
+
+        statusMsg.className =
+            "error";
+
+        return;
+    }
+
+
+    /* ---------------------------------------------
+       TIME REQUIRED
+    --------------------------------------------- */
+
+    if (!targetTime.value) {
+
+        statusMsg.textContent =
+            "Please select a time.";
+
+        statusMsg.className =
+            "error";
+
+        return;
+    }
+
+
+    const now = new Date();
+
+    const today = getTodayString();
+
+
+    /* =================================================
+       SPECIAL FIX:
+       
+       If today's date is selected,
+       the time is treated as a DURATION.
+
+       Example:
+       00:00:02 = 2 seconds
+       00:01:00 = 1 minute
+       01:00:00 = 1 hour
+    ================================================= */
+
+    if (targetDate.value === today) {
+
+        const durationSeconds =
+            timeToSeconds(
+                targetTime.value
+            );
+
+
+        if (durationSeconds <= 0) {
+
+            statusMsg.textContent =
+                "Please enter a time greater than 00:00:00.";
+
+            statusMsg.className =
+                "error";
+
+            return;
+        }
+
+
+        /* Target = now + duration */
+
+        const target =
+            new Date(
+                now.getTime() +
+                durationSeconds * 1000
+            );
+
+
+        timerDisplay.style.display =
+            "flex";
+
+        clearStatus();
+
+
+        /* Initial display */
+
+        updateDisplay(
+            secondsToCountdown(
+                durationSeconds
+            )
+        );
+
+
+        /* Start countdown */
+
+        timer = setInterval(
+            function () {
+
+                const current =
+                    new Date();
+
+                const remaining =
+                    Math.ceil(
+                        (
+                            target.getTime() -
+                            current.getTime()
+                        ) / 1000
+                    );
+
+
+                if (remaining <= 0) {
+
+                    clearInterval(timer);
+
+                    timer = null;
+
+
+                    updateDisplay({
+                        years: 0,
+                        months: 0,
+                        days: 0,
+                        hours: 0,
+                        minutes: 0,
+                        seconds: 0
+                    });
+
+
+                    statusMsg.textContent =
+                        "Time's up!";
+
+                    statusMsg.className =
+                        "success";
+
+                    return;
+                }
+
+
+                updateDisplay(
+                    secondsToCountdown(
+                        remaining
+                    )
+                );
+
+            },
+            200
+        );
+
+        return;
+    }
+
+
+    /* =================================================
+       FUTURE DATE
+       
+       For a future date, the selected time is treated
+       as the clock time on that date.
+       
+       Example:
+       Date = 25/12/2026
+       Time = 10:30:00
+    ================================================= */
+
+    const target =
+        new Date(
+            targetDate.value +
+            "T" +
+            targetTime.value
+        );
+
+
+    if (target <= now) {
+
+        statusMsg.textContent =
+            "Please select a future date and time.";
+
+        statusMsg.className =
+            "error";
+
+        return;
+    }
+
+
+    timerDisplay.style.display =
+        "flex";
+
+    clearStatus();
+
+
+    /* Initial calculation */
+
+    updateFutureDateDisplay(
+        now,
+        target
+    );
+
+
+    /* Start countdown */
+
+    timer = setInterval(
+        function () {
+
+            const current =
+                new Date();
+
+
+            if (current >= target) {
+
+                clearInterval(timer);
+
+                timer = null;
+
+
+                updateDisplay({
+                    years: 0,
+                    months: 0,
+                    days: 0,
+                    hours: 0,
+                    minutes: 0,
+                    seconds: 0
+                });
+
+
+                statusMsg.textContent =
+                    "Time's up!";
+
+                statusMsg.className =
+                    "success";
+
+                return;
+            }
+
+
+            updateFutureDateDisplay(
+                current,
+                target
+            );
+
+        },
+        1000
+    );
+
+});
+
+
+/* =====================================================
+   FUTURE DATE CALCULATION
+===================================================== */
+
+function updateFutureDateDisplay(
+    start,
+    end
+) {
+
+    let current =
+        new Date(start);
+
+    let years = 0;
+    let months = 0;
+
+
+    /* Years */
+
+    while (true) {
+
+        const next =
+            new Date(current);
+
+        next.setFullYear(
+            next.getFullYear() + 1
+        );
+
+
+        if (next <= end) {
+
+            current = next;
+
+            years++;
+
+        } else {
+
+            break;
+
+        }
+
+    }
+
+
+    /* Months */
+
+    while (true) {
+
+        const next =
+            new Date(current);
+
+        next.setMonth(
+            next.getMonth() + 1
+        );
+
+
+        if (next <= end) {
+
+            current = next;
+
+            months++;
+
+        } else {
+
+            break;
+
+        }
+
+    }
+
+
+    let difference =
+        end.getTime() -
+        current.getTime();
+
+
+    const days =
+        Math.floor(
+            difference /
+            (1000 * 60 * 60 * 24)
+        );
+
+    difference -=
+        days *
+        1000 *
+        60 *
+        60 *
+        24;
+
+
+    const hours =
+        Math.floor(
+            difference /
+            (1000 * 60 * 60)
+        );
+
+    difference -=
+        hours *
+        1000 *
+        60 *
+        60;
+
+
+    const minutes =
+        Math.floor(
+            difference /
+            (1000 * 60)
+        );
+
+    difference -=
+        minutes *
+        1000 *
+        60;
+
+
+    const seconds =
+        Math.floor(
+            difference / 1000
+        );
+
+
+    updateDisplay({
+
+        years,
+        months,
+        days,
+        hours,
+        minutes,
+        seconds
+
+    });
+
+}
+
+
+/* =====================================================
+   DATE CHANGE
+===================================================== */
+
+targetDate.addEventListener(
+    "change",
+    function () {
+
+        clearInterval(timer);
+
+        timer = null;
+
+        timerDisplay.style.display =
+            "none";
+
+        clearStatus();
+
+    }
+);
+
+
+/* =====================================================
+   TIME CHANGE
+===================================================== */
+
+targetTime.addEventListener(
+    "change",
+    function () {
+
+        clearInterval(timer);
+
+        timer = null;
+
+        timerDisplay.style.display =
+            "none";
+
+        clearStatus();
+
+    }
+);
+
+
+/* =====================================================
+   RESET
+===================================================== */
+
+resetBtn.addEventListener(
+    "click",
+    function () {
+
+        clearInterval(timer);
+
+        timer = null;
+
+        targetDate.value = "";
+
+        targetTime.value = "";
+
+        timerDisplay.style.display =
+            "none";
+
+        clearStatus();
+
+        targetDate.min =
+            getTodayString();
+
+    }
+);
+
+</script>
+
+</body>
+</html>

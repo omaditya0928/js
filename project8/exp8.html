@@ -1,0 +1,128 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Changing Home Page Background Color</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f7fa;
+            margin: 0;
+            padding: 30px;
+            font-size: 24px;
+            text-align: center;
+            font-weight: bold;
+        }
+
+        .outer-box {
+            border: 3px solid black;
+            padding: 20px;
+            min-height: calc(100vh - 60px);
+            box-sizing: border-box;
+        }
+
+        h1 {
+            text-align: center;
+            font-size: 42px;
+            margin-top: 35px;
+            margin-bottom: 40px;
+            font-weight: bold;
+        }
+
+        p {
+            text-align: center;
+            font-size: 28px;
+            margin: 25px 0;
+            font-weight: bold;
+        }
+
+        label {
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        input {
+            padding: 14px;
+            font-size: 24px;
+            width: 300px;
+            margin-left: 15px;
+            font-weight: bold;
+        }
+
+        #name {
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="outer-box">
+
+        <h1>Experiment 8</h1>
+
+        <p>
+            <label
+                id="name"
+                onmouseover="nameMouseOver()"
+                onmouseout="nameMouseOut()"
+            >
+                Name: Shreyas Chavan
+            </label>
+        </p>
+
+        <p>
+            Class: BE 8 
+        </p>
+
+        <p>
+            Batch: P8
+        </p>
+
+        <p>
+            <label for="roll">
+                Roll Number:
+            </label>
+            <input
+                type="text"
+                id="roll"
+                placeholder="Enter Roll Number"
+                onfocus="rollFocus()"
+                onblur="rollBlur()"
+                oninput="validateRollNumber(this)"
+            >
+        </p>
+
+    </div>
+
+    <script>
+        let rollNumberFocused = false;
+
+        function nameMouseOver() {
+            if (!rollNumberFocused) {
+                document.body.style.backgroundColor = "lightblue";
+            }
+        }
+
+        function nameMouseOut() {
+            if (!rollNumberFocused) {
+                document.body.style.backgroundColor = "#f5f7fa";
+            }
+        }
+
+        function rollFocus() {
+            rollNumberFocused = true;
+            document.body.style.backgroundColor = "lightgreen";
+        }
+
+        function rollBlur() {
+            rollNumberFocused = false;
+            document.body.style.backgroundColor = "#f5f7fa";
+        }
+
+        function validateRollNumber(input) {
+            input.value = input.value.replace(/[^0-9]/g, "");
+        }
+    </script>
+
+</body>
+</html>

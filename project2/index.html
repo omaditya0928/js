@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Multiplication Table </title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f4f4;
+            margin: 20px;
+        }
+
+        h1, h2, h3 {
+            text-align: center;
+        }
+
+        h1 {
+            color: blue;
+        }
+
+        .container {
+            display: flex;
+            justify-content: space-between;
+            gap: 20px;
+        }
+
+        .box {
+            width: 32%;
+            background: white;
+            padding: 15px;
+            border-radius: 10px;
+            box-shadow: 0 0 8px gray;
+        }
+
+        .box h2 {
+            color: green;
+        }
+
+        input {
+            width: 95%;
+            padding: 8px;
+            margin: 8px 0;
+            font-size: 16px;
+        }
+
+        button {
+            width: 100%;
+            padding: 10px;
+            background: green;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: darkgreen;
+        }
+
+        .result {
+            margin-top: 15px;
+            background: #f9f9f9;
+            padding: 10px;
+            min-height: 250px;
+            border-radius: 5px;
+        }
+
+        .error {
+            color: red;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h2>Shreyas Chavan</h2>
+    <h3>42404</h3>
+    <h3>BE 8 (P8)</h3>
+
+    <h1>Multiplication Table </h1>
+
+    <div class="container">
+
+        <!-- FOR LOOP -->
+        <div class="box">
+            <h2>FOR LOOP</h2>
+
+            <input
+                type="text"
+                id="forNum"
+                placeholder="Enter Number"
+                oninput="this.value=this.value.replace(/(?!^-)[^0-9]/g,'')">
+
+            <input
+                type="text"
+                id="forLimit"
+                placeholder="Enter Multiplier"
+                oninput="this.value=this.value.replace(/(?!^-)[^0-9]/g,'')">
+
+            <button onclick="generateFor()">Generate</button>
+
+            <div id="forError" class="error"></div>
+
+            <div id="forResult" class="result"></div>
+        </div>
+
+        <!-- WHILE LOOP -->
+        <div class="box">
+            <h2>WHILE LOOP</h2>
+
+            <input
+                type="text"
+                id="whileNum"
+                placeholder="Enter Number"
+                oninput="this.value=this.value.replace(/(?!^-)[^0-9]/g,'')">
+
+            <input
+                type="text"
+                id="whileLimit"
+                placeholder="Enter Multiplier"
+                oninput="this.value=this.value.replace(/(?!^-)[^0-9]/g,'')">
+
+            <button onclick="generateWhile()">Generate</button>
+
+            <div id="whileError" class="error"></div>
+
+            <div id="whileResult" class="result"></div>
+        </div>
+
+        <!-- DO WHILE LOOP -->
+        <div class="box">
+            <h2>DO WHILE LOOP</h2>
+
+            <input
+                type="text"
+                id="doNum"
+                placeholder="Enter Number"
+                oninput="this.value=this.value.replace(/(?!^-)[^0-9]/g,'')">
+
+            <input
+                type="text"
+                id="doLimit"
+                placeholder="Enter Multiplier"
+                oninput="this.value=this.value.replace(/(?!^-)[^0-9]/g,'')">
+
+            <button onclick="generateDoWhile()">Generate</button>
+
+            <div id="doError" class="error"></div>
+
+            <div id="doResult" class="result"></div>
+        </div>
+
+    </div>
+
+    <script src="exp2.js"></script>
+
+</body>
+</html>

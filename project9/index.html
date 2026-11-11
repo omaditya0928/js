@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Information Form</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="box">
+    <!-- =========================
+         FORM PAGE
+    ========================== -->
+    <div id="formPage">
+        <h3>
+            Shreyas Chavan | BE 8 (P8) | 42304
+        </h3>
+        <h1>
+            Student Information Form
+        </h1>
+        <form id="studentForm" autocomplete="off">
+            <div class="form">
+                <!-- NAME -->
+                <div>
+                    <label for="name">
+                        Name:
+                    </label>
+                    <br>
+                    <input
+                        id="name"
+                        type="text"
+                    >
+                    <div
+                        id="nameErr"
+                        class="error"
+                    ></div>
+                </div>
+                <!-- MOBILE -->
+                <div>
+                    <label for="mobile">
+                        Mobile Number:
+                    </label>
+                    <br>
+                    <input
+                        id="mobile"
+                        type="text"
+                        maxlength="10"
+                        inputmode="numeric"
+                    >
+                    <div
+                        id="mobileErr"
+                        class="error"
+                    ></div>
+                </div>
+                <!-- EMAIL -->
+                <div>
+                    <label for="email">
+                        Email ID:
+                    </label>
+                    <br>
+                    <input
+                        id="email"
+                        type="email"
+                    >
+                    <div
+                        id="emailErr"
+                        class="error"
+                    ></div>
+                </div>
+                <!-- ADDRESS -->
+                <div>
+                    <label for="address">
+                        Address:
+                    </label>
+                    <br>
+                    <input
+                        id="address"
+                        type="text"
+                    >
+                    <div
+                        id="addressErr"
+                        class="error"
+                    ></div>
+                </div>
+                <!-- CITY -->
+                <div>
+                    <label for="city">
+                        City:
+                    </label>
+                    <br>
+                    <input
+                        id="city"
+                        type="text"
+                    >
+                    <div
+                        id="cityErr"
+                        class="error"
+                    ></div>
+                </div>
+                <!-- STATE -->
+                <div>
+                    <label for="state">
+                        State:
+                    </label>
+                    <br>
+                    <select id="state">
+                        <option value="">
+                            -- Select State --
+                        </option>
+                        <option>Andhra Pradesh</option>
+                        <option>Arunachal Pradesh</option>
+                        <option>Assam</option>
+                        <option>Bihar</option>
+                        <option>Chhattisgarh</option>
+                        <option>Goa</option>
+                        <option>Gujarat</option>
+                        <option>Haryana</option>
+                        <option>Himachal Pradesh</option>
+                        <option>Jharkhand</option>
+                        <option>Karnataka</option>
+                        <option>Kerala</option>
+                        <option>Madhya Pradesh</option>
+                        <option>Maharashtra</option>
+                        <option>Manipur</option>
+                        <option>Meghalaya</option>
+                        <option>Mizoram</option>
+                        <option>Nagaland</option>
+                        <option>Odisha</option>
+                        <option>Punjab</option>
+                        <option>Rajasthan</option>
+                        <option>Sikkim</option>
+                        <option>Tamil Nadu</option>
+                        <option>Telangana</option>
+                        <option>Tripura</option>
+                        <option>Uttar Pradesh</option>
+                        <option>Uttarakhand</option>
+                        <option>West Bengal</option>
+                    </select>
+                    <div
+                        id="stateErr"
+                        class="error"
+                    ></div>
+                </div>
+                <!-- GENDER -->
+                <div>
+                    <label>
+                        Gender:
+                    </label>
+                    <div class="gender">
+                        <label>
+                            <input
+                                type="radio"
+                                name="gender"
+                                value="Male"
+                            >
+                            Male
+                        </label>
+                        <label>
+                            <input
+                                type="radio"
+                                name="gender"
+                                value="Female"
+                            >
+                            Female
+                        </label>
+                    </div>
+                    <div
+                        id="genderErr"
+                        class="error"
+                    ></div>
+                </div>
+            </div>
+            <button type="submit">
+                Submit
+            </button>
+        </form>
+    </div>
+    <!-- =========================
+         SUCCESS PAGE
+    ========================== -->
+    <div id="successPage">
+        <div class="confetti c1"></div>
+        <div class="confetti c2"></div>
+        <div class="confetti c3"></div>
+        <div class="confetti c4"></div>
+        <div class="confetti c5"></div>
+        <div class="confetti c6"></div>
+        <div class="confetti c7"></div>
+        <div class="confetti c8"></div>
+        <div class="confetti c9"></div>
+        <div class="confetti c10"></div>
+        <div class="success-box">
+            <div class="check">
+                ✓
+            </div>
+            <h1>
+                Submission Successful!
+            </h1>
+            <p>
+                🎉 Congratulations!
+            </p>
+            <p>
+                Your student information form
+                has been submitted successfully.
+            </p>
+            <section class="submitted-info" aria-label="Submitted student information">
+                <h2>Submitted Student Information</h2>
+                <dl class="details-list">
+                    <div><dt>Name</dt><dd id="savedName"></dd></div>
+                    <div><dt>Mobile Number</dt><dd id="savedMobile"></dd></div>
+                    <div><dt>Email ID</dt><dd id="savedEmail"></dd></div>
+                    <div><dt>Address</dt><dd id="savedAddress"></dd></div>
+                    <div><dt>City</dt><dd id="savedCity"></dd></div>
+                    <div><dt>State</dt><dd id="savedState"></dd></div>
+                    <div><dt>Gender</dt><dd id="savedGender"></dd></div>
+                </dl>
+            </section>
+            <p class="student">
+                Shreyas Chavan | BE 8 (P8) | 42404
+            </p>
+            <button
+                type="button"
+                class="logout"
+                id="logoutBtn"
+            >
+                Logout
+            </button>
+        </div>
+    </div>
+</div>
+<script src="script.js"></script>
+</body>
+</html>
